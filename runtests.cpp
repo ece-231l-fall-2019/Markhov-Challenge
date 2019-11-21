@@ -34,7 +34,26 @@ int main ()
 	int test[8][7] = 50;
 	int test[8][9] = 50;
 	
-
+	int node = 0;
+	int SIM = 10;
+	int Steps = 0;
+	int Results[];
+	
+	while(node != SIM)
+	{
+		int TotPercent = 0;
+		int Dice = rand() % 100;
+		
+		for(int next = 0; next < SIM; next ++)
+		{
+			TotPercent += test[node][next];
+			if(Dice < TotPercent)
+				Steps ++; next = node;
+			Steps ++;
+		}
+		Results.push_back(Steps);
+	}
+	
 	return 0;
 }
 
