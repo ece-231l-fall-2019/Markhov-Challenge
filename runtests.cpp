@@ -1,13 +1,41 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
 int main ()
 {	
-	size_t steps;
-	
-	int test[10][10];	
-	
+	srand(time(NULL));
+#if 1
+	int row = 9;
+	int column = 10;
+	int test2[row][column] = {
+	          { 50, 30, 0, 0, 20, 0, 0, 0, 0, 0 }
+	        , { 50, 0, 50, 0, 0, 0, 0, 0, 0, 0 }
+	        , { 0, 50, 0, 40, 10, 0, 0 , 0, 0, 0 }
+	        , { 0, 0, 50, 0, 50, 0, 0, 0, 0, 0 }
+	        , { 0, 20, 0, 30, 0, 50, 0, 0, 0, 0 }
+	        , { 0, 0, 40, 0, 10, 0, 50, 0, 0, 0 }
+	        , { 0, 0, 25, 0, 0, 25, 0, 50, 0, 0 }
+	        , { 0, 0, 0, 20, 0, 30, 0, 0, 50, 0 }
+	        , { 50, 0, 10, 0, 0, 0, 0, 50, 0, 50 }};
+#endif
+#if 0
+	int row = 9;
+	int column = 10;
+	int test2[row][column] = {
+	          { 50, 50, 0, 0, 0, 0, 0, 0, 0, 0 }
+	        , { 50, 0, 50, 0, 0, 0, 0, 0, 0, 0 }
+	        , { 0, 50, 0, 50, 0, 0, 0, 0, 0, 0 }
+	        , { 0, 0, 50, 0, 50, 0, 0, 0, 0, 0 }
+	        , { 0, 0, 0, 50, 0, 50, 0, 0, 0, 0 }
+	        , { 0, 0, 0, 0, 50, 0, 50, 0, 0, 0 }
+	        , { 0, 0, 0, 0, 0, 50, 0, 50, 0, 0 }
+	        , { 0, 0, 0, 0, 0, 0, 50, 0, 50, 0 }
+	        , { 0, 0, 0, 0, 0, 0, 0, 50, 0, 50 }};
+#endif
+
+#if 0
+	int test[10][10] {};	
+
 	test[0][0] = 50;
 	test[0][1] = 50;
 
@@ -34,27 +62,28 @@ int main ()
 	
 	test[8][7] = 50;
 	test[8][9] = 50;
-	
+#endif	
 	int node = 0;
-	int SIM = 10;
+	int SIM = 9;
 	int Steps = 0;
-	int Results[];
 	
 	while(node != SIM)
 	{
 		int TotPercent = 0;
 		int Dice = rand() % 100;
-		
-		for(int next = 0; next < SIM; next ++)
+		for(int next = 0; next < 10; next ++)
 		{
 			TotPercent += test[node][next];
 			if(Dice < TotPercent)
-				Steps ++; next = node;
+			{
+				Steps ++; 
+				node = next;
+				break;
+			}
 			Steps ++;
 		}
-		Results.push_back(Steps);
 	}
-	
+	std::cout << Steps << std::endl;	
 	return 0;
 }
 
