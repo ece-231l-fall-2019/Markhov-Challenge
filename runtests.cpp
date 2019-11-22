@@ -1,41 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
 int main ()
 {	
 	srand(time(NULL));
-#if 0
-	int row = 9;
-	int column = 10;
-	int test2[row][column] = {
-	          { 50, 30, 0, 0, 20, 0, 0, 0, 0, 0 }
-	        , { 50, 0, 50, 0, 0, 0, 0, 0, 0, 0 }
-	        , { 0, 50, 0, 40, 10, 0, 0 , 0, 0, 0 }
-	        , { 0, 0, 50, 0, 50, 0, 0, 0, 0, 0 }
-	        , { 0, 20, 0, 30, 0, 50, 0, 0, 0, 0 }
-	        , { 0, 0, 40, 0, 10, 0, 50, 0, 0, 0 }
-	        , { 0, 0, 25, 0, 0, 25, 0, 50, 0, 0 }
-	        , { 0, 0, 0, 20, 0, 30, 0, 0, 50, 0 }
-	        , { 50, 0, 10, 0, 0, 0, 0, 50, 0, 50 }};
-#endif
-#if 0
-	int row = 9;
-	int column = 10;
-	int test2[row][column] = {
-	          { 50, 50, 0, 0, 0, 0, 0, 0, 0, 0 }
-	        , { 50, 0, 50, 0, 0, 0, 0, 0, 0, 0 }
-	        , { 0, 50, 0, 50, 0, 0, 0, 0, 0, 0 }
-	        , { 0, 0, 50, 0, 50, 0, 0, 0, 0, 0 }
-	        , { 0, 0, 0, 50, 0, 50, 0, 0, 0, 0 }
-	        , { 0, 0, 0, 0, 50, 0, 50, 0, 0, 0 }
-	        , { 0, 0, 0, 0, 0, 50, 0, 50, 0, 0 }
-	        , { 0, 0, 0, 0, 0, 0, 50, 0, 50, 0 }
-	        , { 0, 0, 0, 0, 0, 0, 0, 50, 0, 50 }};
-#endif
-
-#if 1
-	int test[10][10] {};	
-
+	int test[10][10] = {0};	
+	
 	test[0][0] = 50;
 	test[0][1] = 50;
 
@@ -62,38 +33,65 @@ int main ()
 	
 	test[8][7] = 50;
 	test[8][9] = 50;
-#endif	
-	int results[SIM] = {0};
-	for(int n; n < SIM; n++)
+	
+	test[9][8] = 50;
+	test[9][10] = 50;
+	
+	int node = 0;
+	int sim = 100;
+	size_t steps = 0;
+	int results[sim] = {0};
+
+	for (int n = 0; n < sim; n++) 
 	{
-		int node = 0;
-		int SIM = 9;
-		int Steps = 0;
 		while(node != 9)
 		{
-			srand(time(NULL));
-			int TotPercent = 0;
+			int tPercent = 0;
 			int Dice = rand() % 100;
-			for(int next = 0; next < 10; next ++)
+		
+			for(int next = 0; next < 10; next++)
 			{
 				TotPercent += test[node][next];
-				if(Dice < TotPercent)
+				if(Dice < tPercent)
 				{
-					Steps ++; 
 					node = next;
+					steps++; 
 					break;
 				}
-				Steps ++;
+				steps++;
 			}
 		}
-		results[n] = Steps;
+		results[n] = steps;
+		node = 0;
+		steps = 0;
+	}
+	
+	int resultsMax = 0;
+	int resultsMin = results[0];
+	int mean = 0;
+
+	for (int n = 0; (n + 1) <= sim; n++)
+	{
+		int ind = results[n];
+                mean += results[n];
+ 
+                if(ind > resultsMax)
+                {
+                        resultsMax = ind;
+                }
+ 
+                if(ind < resultsMin)
+                {
+                        resultsMin = ind;
+                }
 	}
 
-	for (auto n : results)
-	{
-		std::cout<< n << std::endl;
-	}
-		//std::cout << Steps << std::endl;	
+	int resultsMean = (mean/sim);
+ 
+        std::cout << "Max: " << resultsMax << std::endl;
+        std::cout << "Min: " << resultsMin << std::endl;
+        std::cout << "Mean: " << resultsMean << std::endl;
+
 	return 0;
 }
 
