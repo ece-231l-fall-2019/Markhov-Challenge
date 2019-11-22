@@ -5,8 +5,7 @@ CXXFLAGS =-Wall -ggdb3
 
 all: runtests
 
-runtests: runtests.o  
+runtests: runtests.o
 
 clean:
 	rm -f runtests *.o
-
