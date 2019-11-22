@@ -5,7 +5,6 @@
 int main ()
 {	
 	srand(time(NULL));
-
 	int test[10][10] = {0};	
 	
 	test[0][0] = 50;
