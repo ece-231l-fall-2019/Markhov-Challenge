@@ -39,7 +39,7 @@ int main ()
 	test[9][10] = 50;
 	
 	int node = 0;
-	int sim = 100;
+	int sim = 10000;
 	size_t steps = 0;
 	int results[sim] = {0};
 
@@ -52,7 +52,7 @@ int main ()
 		
 			for(int next = 0; next < 10; next++)
 			{
-				TotPercent += test[node][next];
+				tPercent += test[node][next];
 				if(Dice < tPercent)
 				{
 					node = next;
