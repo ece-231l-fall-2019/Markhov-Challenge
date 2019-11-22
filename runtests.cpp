@@ -45,16 +45,15 @@ int main ()
 
 	for (int n = 0; n < sim; n++) 
 	{
-		int Dice = 0;
 		while(node != 9)
 		{
-			int TotPercent = 0;
-			Dice = rand() % 100;
+			int tPercent = 0;
+			int Dice = rand() % 100;
 		
 			for(int next = 0; next < 10; next++)
 			{
 				TotPercent += test[node][next];
-				if(Dice <= TotPercent)
+				if(Dice < tPercent)
 				{
 					node = next;
 					steps++; 
@@ -64,11 +63,36 @@ int main ()
 			}
 		}
 		results[n] = steps;
+		node = 0;
+		steps = 0;
 	}
-	for (int i = 0; i != sim; i++)
+	
+	int resultsMax = 0;
+	int resultsMin = results[0];
+	int mean = 0;
+
+	for (int n = 0; (n + 1) <= sim; n++)
 	{
-		std::cout << "Steps: " << results[i] << std::endl;
+		int ind = results[n];
+                mean += results[n];
+ 
+                if(ind > resultsMax)
+                {
+                        resultsMax = ind;
+                }
+ 
+                if(ind < resultsMin)
+                {
+                        resultsMin = ind;
+                }
 	}
+
+	int resultsMean = (mean/sim);
+ 
+        std::cout << "Max: " << resultsMax << std::endl;
+        std::cout << "Min: " << resultsMin << std::endl;
+        std::cout << "Mean: " << resultsMean << std::endl;
+
 	return 0;
 }
 
