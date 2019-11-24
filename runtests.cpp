@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+//removed the 10th node since it was not needed program still running the same -Kevin
 
 int main ()
 {	
