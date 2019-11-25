@@ -1,12 +1,13 @@
+//Group: Hieu Quang, Nigel Reyes, Kevin Henry
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-//removed the 10th node since it was not needed program still running the same -Kevin
 
 int main ()
 {	
-	srand(time(NULL));
-	int test[10][10] = {0};	
+	
+	int test[10][10] = {0};	//ten node array
 	
 	test[0][0] = 50;
 	test[0][1] = 50;
@@ -35,46 +36,46 @@ int main ()
 	test[8][7] = 50;
 	test[8][9] = 50;
 	
-//	test[9][8] = 50;
-//	test[9][10] = 50;
 	
-	int node = 0;
-	int sim = 10000;
-	size_t steps = 0;
+	srand(time(NULL)); //randomizer
+	int node = 0; //columns
+	int sim = 10000; //10,000 simulations
+	size_t steps = 0; //steps
 	int results[sim] = {0};
 	int Dice = rand() % 100;
 	
-	for (int n = 0; n < sim; n++) 
+	for (int n = 0; n < sim; n++) //for loop simulation 
 	{
-		while(node != 9)
+		while(node != 9) //the test
 		{
-			int tPercent = 0;
-			Dice = rand() % 100;
-			for(int next = 0; next < 10; next++)
+			int tPercent = 0; //total percentage
+			Dice = rand() % 100; //randomizer
+			for(int next = 0; next < 10; next++) //row
 			{
-				tPercent += test[node][next];
-				if(Dice < tPercent)
+				tPercent += test[node][next]; //total percentage <---- current percentage @ node.
+				if(Dice < tPercent) //checks, total percentage with randomizer
 				{
-					node = next;
+					node = next; //moves either backwards or forwards depending on row position
 					steps++; 
 					break;
 				}
 			}
-			//steps++;
 		}
-		results[n] = steps;
-		node = 0;
+		
+		results[n] = steps; //results array
+		node = 0; //resetting for another test
 		steps = 0;
 	}
 	
 	int resultsMax = 0;
 	int resultsMin = results[0];
 	int mean = 0;
-
+	
+	//determining mean, max, and min
 	for (int n = 0; n < sim; n++)
 	{
 		int ind = results[n];
-                mean += results[n];
+                mean += results[n]; //loads in all value
  
                 if(ind > resultsMax)
                 {
@@ -87,14 +88,9 @@ int main ()
                 }
 	}
 
-	int resultsMean = (mean/sim);
-/*	
-	for (int n = 0; n < 50; n++)
-	{	
-		std::cout << results[n] << std::endl;
-	}
-  */
-  	std::cout << "Max: " << resultsMax << std::endl;
+	int resultsMean = (mean/sim); //all value / simulations(10,000)
+  	
+	std::cout << "Max: " << resultsMax << std::endl;
         std::cout << "Min: " << resultsMin << std::endl;
         std::cout << "Mean: " << resultsMean << std::endl;
 
